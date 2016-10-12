@@ -189,7 +189,8 @@ user_output_path = base_path + '\\' + input_df.get_value(index = 20, col = 'answ
 dummy_user_output_path = base_path + '\\' + input_df.get_value(index = 20, col = 'answers') + '_DUMMY_user_manual_' + (time.strftime('%Y%m%d')) + '.csv'
 
 final_organization_file.to_csv(organization_output_path, index=False, encoding='utf-8')
-final_user_file.to_csv(user_output_path, index=False, encoding='utf-8')
+if any('email_address' in s for s in list(final_user_file.columns.values)): # if there are any emails, create a user file
+    final_user_file.to_csv(user_output_path, index=False, encoding='utf-8')
 dummy_user_df.to_csv(dummy_user_output_path, index=False, encoding='utf-8')
 
 ### Checking files and outputs audit files if differences are found ###
